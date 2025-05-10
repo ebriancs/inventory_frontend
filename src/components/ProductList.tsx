@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { fetchProducts, updateProductAsync, deleteProductAsync, Product } from '../features/products/productSlice';
 import './ProductList.scss';
+import Swal from 'sweetalert2';
 
 const ProductList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -51,6 +52,22 @@ const ProductList: React.FC = () => {
     }
   };
 
+  const handleDelete = (id: number) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This product will be deleted permanently.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteProductAsync(id));
+      }
+    });
+  };
+
   return (
     <div className="products">
       {loading ? (
@@ -86,7 +103,7 @@ const ProductList: React.FC = () => {
                     </div>
                     <div className="actions">
                       <button onClick={() => handleEditClick(product)}>Edit</button>
-                      <button onClick={() => dispatch(deleteProductAsync(product.id))}>Delete</button>
+                      <button onClick={() => handleDelete(product.id)}>Delete</button>
                     </div>
                   </div>
                 )}

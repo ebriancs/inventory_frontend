@@ -20,6 +20,11 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onClose }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (parseFloat(price) <= 0 || quantity <= 0) {
+      alert('Price and Quantity must be positive numbers.');
+      return;
+    }
+
     const newProduct: NewProduct = {
       name: productName,
       description: description,
@@ -46,27 +51,24 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onClose }) => {
             placeholder="Product Name"
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
-            disabled={loading} // Disable input if loading
+            disabled={loading}
+            required
           />
           <textarea
             placeholder="Product Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            disabled={loading} // Disable input if loading
+            disabled={loading}
+            required
           />
-          <input
-            type="number"
-            placeholder="Price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            disabled={loading} // Disable input if loading
-          />
+          <input type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} disabled={loading} required />
           <input
             type="number"
             placeholder="Quantity"
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
-            disabled={loading} // Disable input if loading
+            disabled={loading}
+            required
           />
 
           <div className="actions">
