@@ -18,7 +18,7 @@ const Login = () => {
       await dispatch(loginAsync({ username, password })).unwrap();
       navigate('/dashboard');
     } catch (err) {
-      alert(err);
+      console.log('Login -> handleLogin:', err);
     }
   };
 
@@ -26,7 +26,7 @@ const Login = () => {
     <div className="login">
       <div className="login__content">
         <h2>Login</h2>
-        {error && <p className="error">Error: {error}</p>}
+
         <form onSubmit={handleLogin}>
           <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} disabled={loading} />
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} disabled={loading} />
@@ -34,6 +34,7 @@ const Login = () => {
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
+        {error && <p className="error">{error}</p>}
       </div>
     </div>
   );

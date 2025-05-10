@@ -16,6 +16,7 @@ const initialState: AuthState = {
 export const loginAsync = createAsyncThunk('auth/login', async (payload: { username: string; password: string }, { rejectWithValue }) => {
   try {
     const res = await API.post('/login/', payload);
+    console.log('authSlice -> loginAsync:', res);
     return res.data.access;
   } catch (error: any) {
     return rejectWithValue(error.response?.data?.detail || 'Login failed');

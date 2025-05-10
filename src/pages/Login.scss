@@ -58,5 +58,10 @@
         }
       }
     }
+
+    .error {
+      text-align: center;
+      color: $error-color;
+    }
   }
 }
