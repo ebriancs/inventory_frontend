@@ -1,0 +1,62 @@
+@import './variables';
+
+.login {
+  height: 100vh;
+  background-color: $background-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__content {
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: $primary-color;
+    }
+
+    form {
+      background-color: $background-color;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 350px;
+
+      input {
+        width: 100%;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        border: 1px solid $border-color;
+        border-radius: 6px;
+        font-size: 1rem;
+        box-sizing: border-box;
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+        }
+      }
+
+      button {
+        width: 100%;
+        padding: 0.8rem;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: $primary-hover;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

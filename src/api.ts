@@ -1,26 +1,20 @@
 import axios from 'axios';
-import { store } from './app/store';
 
 const API = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: process.env.REACT_APP_API_BASE_URL,
 });
 
-// Add a request interceptor to attach the token
-API.interceptors.request.use(
-  (config) => {
-    const state = store.getState();
-    const token = state.auth.token;
+const token = localStorage.getItem('token');
+if (token) {
+  API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
 
-    if (token) {
-      // If there's a token, attach it to the request's Authorization header
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
+export const setAuthToken = (token: string | null) => {
+  if (token) {
+    API.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  } else {
+    delete API.defaults.headers.common['Authorization'];
   }
-);
+};
 
 export default API;
